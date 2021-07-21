@@ -1,0 +1,44 @@
+Grammar
+
+program = output | sequence;
+
+output = sequence, "\O{", digit, "}";
+
+group = "(", sequence, ")";
+
+sequence = operator, { operator };
+
+ignore = operator, "\I";
+
+operator = or | repeat | count | ignore | group | symbol;
+
+or = operator, "+", operator;
+
+count = symbol, "{", digit, "}";
+
+repeat = symbol, "*";
+
+symbol = character | wildcard;
+
+
+wildcard = ".";
+character =  ? everything not . ?;
+digit = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+
+
+Krav:
+
+lo* could.{3}
+
+.*
+
+Valfritt:
+
+Waterloo (.*)the war\O{1}
+
+promise to (Love+Hate) you\O{1}
+
+promise to (Love+Hate)\I you\O{1}
+
+Love+Hate
+(Love+(Hate)\I)
